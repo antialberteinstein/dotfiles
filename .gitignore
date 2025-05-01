@@ -1,0 +1,21 @@
+# Ignore everything
+*
+# Un-ignore thư mục và tất cả nội dung bên trong
+!.git
+!.gitignore
+!.config/hypr/**
+!.config/waybar/**
+!.config/kitty/**
+!.config/fish/**
+!.config/tmux/**
+!.config/nvim/**
+!.config/gtk-3.0/**
+!.config/gtk-4.0/**
+!.config/dunst/**
+!.config/git/**
+
+# Un-ignore các file/thư mục khác
+!Pictures/Background/**
+!scripts/**
+
+
