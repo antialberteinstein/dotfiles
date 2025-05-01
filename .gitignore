@@ -34,9 +34,11 @@
 
 # Un-ignore Pictures/Background
 !Pictures/
+!Pictures/Background/
 !Pictures/Background/**
 
 # Un-ignore scripts directory
+!scripts/
 !scripts/**
 
 # (Optional) If you have other root files/dirs to track, add them here
