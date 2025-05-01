@@ -41,5 +41,8 @@
 !scripts/
 !scripts/**
 
+# Misc
+!.bashrc
+
 # (Optional) If you have other root files/dirs to track, add them here
 # Example: !.bashrc
