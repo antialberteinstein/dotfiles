@@ -1,8 +1,26 @@
 # Ignore everything
 *
-# Un-ignore thư mục và tất cả nội dung bên trong
-!.git
+# ------------------------------
+# Un-ignore specific files/dirs
+# ------------------------------
+
+# Track .gitignore
 !.gitignore
+
+# Un-ignore necessary parent directories first
+!.config/
+!.config/hypr/
+!.config/waybar/
+!.config/kitty/
+!.config/fish/
+!.config/tmux/
+!.config/nvim/
+!.config/gtk-3.0/
+!.config/gtk-4.0/
+!.config/dunst/
+!.config/git/
+
+# Now un-ignore all contents under the specified config subdirectories
 !.config/hypr/**
 !.config/waybar/**
 !.config/kitty/**
@@ -14,8 +32,12 @@
 !.config/dunst/**
 !.config/git/**
 
-# Un-ignore các file/thư mục khác
+# Un-ignore Pictures/Background
+!Pictures/
 !Pictures/Background/**
+
+# Un-ignore scripts directory
 !scripts/**
 
-
+# (Optional) If you have other root files/dirs to track, add them here
+# Example: !.bashrc

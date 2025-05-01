@@ -1,0 +1,35 @@
+function bobthefish_colors -S -d 'Define a custom bobthefish color scheme'
+
+  # Tùy chỉnh hoàn toàn, không gọi base scheme nữa
+
+  set -x color_initial_segment_exit     ffffff 5f0000 --bold
+  set -x color_initial_segment_private  ffffff 3c3c6e
+  set -x color_initial_segment_su       ffffff 8b0000 --bold
+  set -x color_initial_segment_jobs     ffffff 2b5c74 --bold
+
+  set -x color_path                     c0c0c0 1a1a1a
+  set -x color_path_basename            ffffff 4b6eaf --bold
+  set -x color_path_nowrite             5f0000 870000
+  set -x color_path_nowrite_basename    ffffff 870000 --bold
+
+  set -x color_repo                     9ecbff 1c1c1c
+  set -x color_repo_work_tree           ffffff 2c2c2c --bold
+  set -x color_repo_dirty               ff5f5f 1a1a1a
+  set -x color_repo_staged              ffaf5f 1a1a1a
+
+  set -x color_vi_mode_default          5f5f5f 1a1a1a --bold
+  set -x color_vi_mode_insert           87afaf 1a1a1a --bold
+  set -x color_vi_mode_visual           d7aaff 1a1a1a --bold
+
+  set -x color_vagrant                  5f87d7 ffffff --bold
+
+  set -x color_username                 c0c0c0 44475a --bold
+  set -x color_hostname                 c0c0c0 44475a
+  set -x color_rvm                      af005f cccccc --bold
+  set -x color_virtualfish              5fafd7 cccccc --bold
+  set -x color_virtualgo                5fafd7 cccccc --bold
+  set -x color_desk                     5fafd7 cccccc --bold
+  set -x color_nix                      5fafd7 cccccc --bold
+
+end
+
