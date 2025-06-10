@@ -114,6 +114,7 @@ return require('packer').startup({
 
         -- Misc
         use 'voldikss/vim-floaterm'
+        use 'github/copilot.vim'
 
         -- Automatically set up your configuration after cloning packer.nvim
         if packer_bootstrap then
