@@ -1,10 +1,10 @@
 function fish_greeting
     set_color -o red
-    echo -n "Thiên hạ rộng lớn "
+    echo -n "Victory belongs "
     set_color brwhite
-    echo -n "sao có thể thiếu ta, "
+    echo -n "to the most "
     set_color cyan
-    echo "hoàng đế của muôn cõi!"
+    echo "preserving!"
     set_color normal
 end
 
