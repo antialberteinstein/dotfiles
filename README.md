@@ -1,6 +1,6 @@
 # My Dotfiles
 
-Welcome to my personal dotfiles repository. This collection contains configurations for my development environment, including Neovim, Fish shell, Hyprland, and more.
+Welcome to my personal dotfiles repository. This collection contains configurations for my development environment, including Neovim, Fish shell, Hyprland, and more. This repository is made for Linux users enjoying chilling ricing desktop. MacOS users can also use the config for their installable apps (Neovim, Fish shell, tmux, kitty)
 
 ## 📂 Repository Structure
 
