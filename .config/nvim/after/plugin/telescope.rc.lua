@@ -3,100 +3,174 @@ if not status then return end
 
 local actions = require('telescope.actions')
 local builtin = require('telescope.builtin')
-local fb_actions = require('telescope').extensions.file_browser.actions
 
--- Tối ưu hàm lấy thư mục hiện tại
-local function telescope_buffer_dir()
-  return vim.fn.expand('%:p:h')
+-- Helper to get project root
+local function project_files()
+  local opts = {} -- define here if you want to define something
+  local ok = pcall(builtin.git_files, opts)
+  if not ok then builtin.find_files(opts) end
 end
 
 telescope.setup({
   defaults = {
+    prompt_prefix = " ",
+    selection_caret = " ",
+    path_display = { "smart" },
+    
     mappings = {
       i = {
-        ['<C-u>'] = false,  -- Tắt mapping mặc định
-        ['<C-d>'] = actions.delete_buffer,  -- Thêm mapping xóa buffer
+        ["<C-n>"] = actions.cycle_history_next,
+        ["<C-p>"] = actions.cycle_history_prev,
+
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+
+        ["<C-c>"] = actions.close,
+        
+        ["<Down>"] = actions.move_selection_next,
+        ["<Up>"] = actions.move_selection_previous,
+
+        ["<CR>"] = actions.select_default,
+        ["<C-x>"] = actions.select_horizontal,
+        ["<C-v>"] = actions.select_vertical,
+        ["<C-t>"] = actions.select_tab,
+
+        ["<C-u>"] = actions.preview_scrolling_up,
+        ["<C-d>"] = actions.preview_scrolling_down,
+        
+        ["<PageUp>"] = actions.results_scrolling_up,
+        ["<PageDown>"] = actions.results_scrolling_down,
+
+        ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+        ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+        ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+        ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["<C-l>"] = actions.complete_tag,
+      },
+      
+      n = {
+        ["<esc>"] = actions.close,
+        ["<CR>"] = actions.select_default,
+        ["<C-x>"] = actions.select_horizontal,
+        ["<C-v>"] = actions.select_vertical,
+        ["<C-t>"] = actions.select_tab,
+
+        ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+        ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+        ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+        ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+
+        ["j"] = actions.move_selection_next,
+        ["k"] = actions.move_selection_previous,
+        ["H"] = actions.move_to_top,
+        ["M"] = actions.move_to_middle,
+        ["L"] = actions.move_to_bottom,
+
+        ["<Down>"] = actions.move_selection_next,
+        ["<Up>"] = actions.move_selection_previous,
+        ["gg"] = actions.move_to_top,
+        ["G"] = actions.move_to_bottom,
+
+        ["<C-u>"] = actions.preview_scrolling_up,
+        ["<C-d>"] = actions.preview_scrolling_down,
+
+        ["<PageUp>"] = actions.results_scrolling_up,
+        ["<PageDown>"] = actions.results_scrolling_down,
+
+        ["?"] = actions.which_key,
       },
     },
-    file_ignore_patterns = { '^.git/', 'node_modules/' },  -- Bỏ qua thư mục
-    layout_strategy = 'horizontal',  -- Cải thiện hiển thị
-    layout_config = {
-      prompt_position = 'top',  -- Thanh tìm kiếm trên cùng
-    },
-    sorting_strategy = 'ascending',  -- Sắp xếp kết quả
+    
+    -- Visual Customization
+    winblend = 0,
+    border = {},
+    borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    color_devicons = true,
+    use_less = true,
+    set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
   },
+  
+  pickers = {
+    -- Default configuration for builtin pickers goes here:
+    find_files = {
+        hidden = true,
+        -- theme = "dropdown",
+    },
+    live_grep = {
+        only_sort_text = true,
+        -- theme = "dropdown",
+    },
+    grep_string = {
+        only_sort_text = true,
+        -- theme = "dropdown",
+    },
+    buffers = {
+        initial_mode = "normal",
+        -- theme = "dropdown",
+        mappings = {
+            i = {
+                ["<C-d>"] = actions.delete_buffer,
+            },
+            n = {
+                ["dd"] = actions.delete_buffer,
+            },
+        },
+    },
+    planets = {
+        show_plural = false,
+        show_moon = true,
+    },
+    git_files = {
+        hidden = true,
+        show_untracked = true,
+    },
+    colorscheme = {
+        enable_preview = true,
+    },
+  },
+  
   extensions = {
     file_browser = {
-      theme = 'dropdown',
+      theme = "dropdown",
+      -- disables netrw and use telescope-file-browser in its place
       hijack_netrw = true,
-      hidden = { file_browser = true, folder_browser = true },  -- Hiện file ẩn
-      respect_gitignore = false,  -- Bỏ qua .gitignore
       mappings = {
-        i = {
-          ['<C-n>'] = fb_actions.create,
-          ['<C-r>'] = fb_actions.rename,
-          ['<C-c>'] = fb_actions.copy,
-          ['<C-x>'] = fb_actions.move,
-          ['<Del>'] = fb_actions.remove,
-          ['<C-h>'] = fb_actions.toggle_hidden,
-          ['<C-g>'] = fb_actions.goto_parent_dir,  -- Thêm phím tắt mới
+        ["i"] = {
+          -- your custom insert mode mappings
         },
-        n = {
-          ['n'] = fb_actions.create,
-          ['r'] = fb_actions.rename,
-          ['c'] = fb_actions.copy,
-          ['m'] = fb_actions.move,
-          ['d'] = fb_actions.remove,
-          ['h'] = fb_actions.toggle_hidden,
-          ['<BS>'] = fb_actions.goto_parent_dir,
+        ["n"] = {
+          -- your custom normal mode mappings
         },
       },
-    },
-  },
-  pickers = {
-    find_files = {
-      hidden = true,  -- Tìm cả file ẩn
-      no_ignore = false,  -- Vẫn tôn trọng .gitignore
     },
   },
 })
 
--- Tải extension
+-- Load extensions
 telescope.load_extension('file_browser')
 
--- Keymaps được tối ưu
+-- Keymaps are managed in keybinds.lua or here
+-- For strict separation, we keep general keybinds in keybinds.lua,
+-- but plugin-specific ones can optionally stay here if complex.
+-- Moving most common ones to keybinds.lua is often cleaner.
+
 local opts = { noremap = true, silent = true }
-
--- Tìm file (bao gồm file ẩn)
-vim.keymap.set('n', 'ff', function()
-  builtin.find_files({
-    no_ignore = false,
-    hidden = true,
-    previewer = true,  -- Bật preview
-  })
-end, opts)
-
--- Mở file browser với layout tốt hơn
-vim.keymap.set('n', 'fa', function()
-  telescope.extensions.file_browser.file_browser({
-    path = '%:p:h',
-    cwd = telescope_buffer_dir(),
-    hidden = true,
-    grouped = true,
-    initial_mode = 'normal',
-    layout_config = {
-      height = 0.8,  -- Chiếm 80% màn hình
-      width = 0.8,
-      preview_cutoff = 120,  -- Giới hạn preview
-    },
-  })
-end, opts)
-
--- Resume tìm kiếm trước đó
-vim.keymap.set('n', 'ft', builtin.resume, opts)
-
--- Thêm keymaps hữu ích
-vim.keymap.set('n', '<C-f>', builtin.live_grep, { desc = 'Live grep' })
-vim.keymap.set('n', 'fg', builtin.live_grep, { desc = 'Live grep' })
-vim.keymap.set('n', 'fb', builtin.buffers, { desc = 'Find buffers' })
-vim.keymap.set('n', 'fh', builtin.help_tags, { desc = 'Help tags' })
+-- Example: 
+-- vim.keymap.set('n', ';f', function() builtin.find_files({ no_ignore = false, hidden = true }) end, opts)
+-- vim.keymap.set('n', ';r', function() builtin.live_grep() end, opts)
+-- vim.keymap.set('n', '\\\\', function() builtin.buffers() end, opts)
+-- vim.keymap.set('n', ';t', function() builtin.help_tags() end, opts)
+-- vim.keymap.set('n', ';;', function() builtin.resume() end, opts)
+-- vim.keymap.set('n', ';e', function() builtin.diagnostics() end, opts)
+-- vim.keymap.set('n', 'sf', function() 
+--     telescope.extensions.file_browser.file_browser({
+--         path = "%:p:h",
+--         cwd = telescope_buffer_dir(),
+--         respect_gitignore = false,
+--         hidden = true,
+--         grouped = true,
+--         previewer = false,
+--         initial_mode = "normal",
+--         layout_config = { height = 40 }
+--     })
+-- end, opts)

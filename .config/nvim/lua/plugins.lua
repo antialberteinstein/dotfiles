@@ -58,6 +58,31 @@ return require('packer').startup({
                 'rcarriga/nvim-notify'
             }
         }
+        
+        -- Terminal
+        use {"akinsho/toggleterm.nvim", tag = '*'}
+
+        -- File Explorer (Neo-tree)
+        use {
+            "nvim-neo-tree/neo-tree.nvim",
+            branch = "v3.x",
+            requires = {
+                "nvim-lua/plenary.nvim",
+                "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+                "MunifTanjim/nui.nvim",
+            },
+        }
+
+        -- Helper plugins
+        use "folke/which-key.nvim"
+        use {
+            "folke/todo-comments.nvim",
+            requires = "nvim-lua/plenary.nvim"
+        }
+        use {
+            "kylechui/nvim-surround",
+            tag = "*", -- Use for stability; omit to use `main` branch
+        }
 
         -- Navigation and search
         use {
@@ -73,7 +98,7 @@ return require('packer').startup({
             'numToStr/Comment.nvim',
             requires = {
                 'JoosepAlviste/nvim-ts-context-commentstring',
-            }
+            },
         }
         use 'windwp/nvim-autopairs'
 
@@ -113,8 +138,8 @@ return require('packer').startup({
         use 'lewis6991/gitsigns.nvim'
 
         -- Misc
-        use 'voldikss/vim-floaterm'
-        use 'github/copilot.vim'
+        -- use 'voldikss/vim-floaterm' -- Removed in favor of toggleterm
+        -- usage 'github/copilot.vim' -- Removed as requested
 
         -- Automatically set up your configuration after cloning packer.nvim
         if packer_bootstrap then

@@ -4,42 +4,35 @@
 
 # Install necessary packages
 dnf update -y
-dnf install git wget curl vim neovim -y
+dnf install -y git wget curl vim neovim
 
 # Install Hyprland
-dnf install copr enable solapasha/hyprland -y
-dnf install hyprland -y
+dnf copr enable -y solapasha/hyprland
+dnf install -y hyprland
 
 # Install swaylock-effect
-dnf copr enable eddsalkield/swaylock-effects
-dnf install swaylock-effects
+dnf copr enable -y eddsalkield/swaylock-effects
+dnf install -y swaylock-effects
 
 # Install Wayland supported tools
-dnf install xdg-desktop-portal-hyprland waybar dunst kitty rofi-wayland wl-clipboard sddm hyprpaper -y
+dnf install -y xdg-desktop-portal-hyprland waybar dunst kitty rofi-wayland wl-clipboard sddm hyprpaper
 
 # Change display manager
 systemctl disable gdm
 systemctl enable sddm
 
-# Install some packages
-dnf install fish -y
-dnf install btop -y
-dnf install bat -y
-dnf install cmatrix -y
+# Install misc packages
+dnf install -y fish btop bat cmatrix
 
 # Install important packages
-dnf install pavucontrol -y
-dnf install brightnessctl -y
+dnf install -y pavucontrol brightnessctl
 
 # Install fonts
-dnf install fira-code-fonts jetbrains-mono-fonts google-roboto-fonts -y
+dnf install -y fira-code-fonts jetbrains-mono-fonts google-roboto-fonts
 
 # Install lazygit
-dnf copr enable atim/lazygit -y
-dnf install lazygit -y
+dnf copr enable -y atim/lazygit
+dnf install -y lazygit
 
-# Install for Astro Nvim
-dnf install -y git neovim ripgrep fd-find
-dnf install -y nodejs
-
-dnf install bluez bluez-tools blueman
+# Install for Astro Nvim & other tools
+dnf install -y ripgrep fd-find nodejs bluez bluez-tools blueman
