@@ -43,6 +43,7 @@
 
 # Misc
 !.bashrc
+!README.md
 
 # (Optional) If you have other root files/dirs to track, add them here
 # Example: !.bashrc
